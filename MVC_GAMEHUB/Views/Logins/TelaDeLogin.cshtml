@@ -1,0 +1,39 @@
+﻿@model MVC_GAMEHUB.Models.Usuario
+
+@{
+    ViewData["Title"] = "Login Tela";
+    ViewBag.HideMenu = true;
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+
+<div class="tituloLogin">
+    <h1>Entrar</h1>
+    <h3>Seja bem vindo ao</h3>
+    <h2>Game Hub</h2>
+</div>
+<div>
+    <form asp-action="TelaDeLogin" method="post">
+
+        @if (ViewBag.Erro != null)
+        {
+            <div class="alert alert-danger">@ViewBag.Erro</div>
+        }
+
+        <div>
+            <label asp-for="Email"></label>
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <div>
+            <label asp-for="Senha"></label>
+            <input asp-for="Senha" class="form-control" type="password" />
+            <span asp-validation-for="Senha" class="text-danger"></span>
+        </div>
+        <div>
+            <input type="submit" value="Entrar" />
+        </div>
+        <div>
+            <a asp-action="TelaDeCadastro">Não tem uma conta? Cadastre-se</a>
+        </div>
+    </form>
+</div>
