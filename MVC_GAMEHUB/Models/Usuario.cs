@@ -23,8 +23,16 @@ namespace MVC_GAMEHUB.Models
         [Display(Name = "Telefone")]
         public string Telefone { get; set; }
 
+        [Column("Cpf")]
+        [Display(Name = "Cpf")]
+        public string Cpf { get; set; }
+
         [Column("Senha")]
         [Display(Name = "Senha")]
         public string Senha { get; set; }
+
+        [Column("Perfil")]
+        [Display(Name = "Perfil")]
+        public string Perfil { get; set; }
     }
 }

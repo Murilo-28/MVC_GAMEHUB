@@ -2,7 +2,7 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using MVC_GAMEHUB.Models;
 
-namespace MVC_GAMEHUB.Controllers
+namespace MVC_GAMEHUB.Areas.ADM.Controllers
 {
     public class HomeController : Controller
     {

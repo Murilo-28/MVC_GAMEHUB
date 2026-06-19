@@ -19,22 +19,26 @@ namespace MVC_GAMEHUB.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> TelaDeLogin([Bind("Nome,Telefone,Email,Senha")] Usuario usuario)
+        public async Task<IActionResult> TelaDeLogin([Bind("Email,Senha")] Usuario usuario)
         {
             if (ModelState.IsValid)
             {
                 var usuarioExistente = await _context.Usuarios
                     .FirstOrDefaultAsync(u => u.Email == usuario.Email && u.Senha == usuario.Senha);
-                if (usuarioExistente != null)
+
+                if (usuarioExistente == null)
                 {
-                    // Login bem-sucedido, redirecionar para a página desejada
-                    return RedirectToAction("Index", "Home");
+                    ModelState.AddModelError(string.Empty, "Email ou senha inválidos.");
+                    return View(usuario);
                 }
+
+                HttpContext.Session.SetString("UsuarioNome", usuarioExistente.Nome);
+                HttpContext.Session.SetString("UsuarioPerfil", usuarioExistente.Perfil);
+
+                if (usuarioExistente.Perfil == "ADM")
+                    return RedirectToAction("Loja", "PgPrincipal", new { area = "ADM" });
                 else
-                {
-                    // Credenciais inválidas, exibir mensagem de erro
-                    ModelState.AddModelError(string.Empty, "Credenciais inválidas.");
-                }
+                    return RedirectToAction("Loja", "PgPrincipal", new { area = "USR" });
             }
             return View(usuario);
         }
@@ -46,22 +50,21 @@ namespace MVC_GAMEHUB.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> TelaDeCadastro([Bind("Email,Senha")] Usuario usuario)
+        public async Task<IActionResult> TelaDeCadastro([Bind("Nome,Telefone,Cpf,Perfil,Email,Senha")] Usuario usuario)
         {
             if (ModelState.IsValid)
             {
-                // Verificar se o email já está em uso
                 var usuarioExistente = await _context.Usuarios
                     .FirstOrDefaultAsync(u => u.Email == usuario.Email);
+
                 if (usuarioExistente != null)
                 {
                     ModelState.AddModelError(string.Empty, "Este email já está em uso.");
                     return View(usuario);
                 }
-                // Adicionar o novo usuário ao banco de dados
+
                 _context.Add(usuario);
                 await _context.SaveChangesAsync();
-                // Redirecionar para a página de login após o cadastro bem-sucedido
                 return RedirectToAction("TelaDeLogin");
             }
             return View(usuario);

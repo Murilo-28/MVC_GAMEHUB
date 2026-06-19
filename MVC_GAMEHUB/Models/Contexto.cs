@@ -12,5 +12,7 @@ namespace MVC_GAMEHUB.Models
         public DbSet<Usuario> Usuarios { get; set; }
 
         public DbSet<Jogo> Jogos { get; set; }
+
+
     }
 }
