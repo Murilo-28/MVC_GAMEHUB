@@ -25,7 +25,7 @@ namespace MVC_GAMEHUB.Models
 
         [Column("Cpf")]
         [Display(Name = "Cpf")]
-        public string Cpf { get; set; }
+        public string Cpf { get; set; } 
 
         [Column("Senha")]
         [Display(Name = "Senha")]

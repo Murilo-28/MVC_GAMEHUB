@@ -1,0 +1,41 @@
+﻿@model MVC_GAMEHUB.Models.Jogo
+@{
+    ViewData["Title"] = "Adicionar Jogo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4" style="max-width:600px;">
+    <h2 style="color:#c6d4df;">Adicionar Jogo</h2>
+    <hr style="border-color:#3a4a5c;">
+
+    <form asp-action="Create" method="post">
+        <div class="mb-3">
+            <label asp-for="Nome" style="color:#c6d4df;"></label>
+            <input asp-for="Nome" class="form-control" style="background:#1b2838; color:#c6d4df; border-color:#3a4a5c;" />
+            <span asp-validation-for="Nome" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Categoria" style="color:#c6d4df;"></label>
+            <input asp-for="Categoria" class="form-control" style="background:#1b2838; color:#c6d4df; border-color:#3a4a5c;" />
+            <span asp-validation-for="Categoria" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Preco" style="color:#c6d4df;"></label>
+            <input asp-for="Preco" class="form-control" style="background:#1b2838; color:#c6d4df; border-color:#3a4a5c;" />
+            <span asp-validation-for="Preco" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="ImagemUrl" style="color:#c6d4df;"></label>
+            <input asp-for="ImagemUrl" class="form-control" style="background:#1b2838; color:#c6d4df; border-color:#3a4a5c;" placeholder="https://..." />
+            <span asp-validation-for="ImagemUrl" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Descricao" style="color:#c6d4df;"></label>
+            <textarea asp-for="Descricao" class="form-control" rows="3" style="background:#1b2838; color:#c6d4df; border-color:#3a4a5c;"></textarea>
+            <span asp-validation-for="Descricao" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Salvar</button>
+        <a asp-action="Loja" asp-controller="Home" asp-area="ADM" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>

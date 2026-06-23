@@ -19,28 +19,28 @@ namespace MVC_GAMEHUB.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> TelaDeLogin([Bind("Email,Senha")] Usuario usuario)
+        public async Task<IActionResult> TelaDeLogin(LoginViewModel model)
         {
             if (ModelState.IsValid)
             {
                 var usuarioExistente = await _context.Usuarios
-                    .FirstOrDefaultAsync(u => u.Email == usuario.Email && u.Senha == usuario.Senha);
+                    .FirstOrDefaultAsync(u => u.Email == model.Email && u.Senha == model.Senha);
 
                 if (usuarioExistente == null)
                 {
                     ModelState.AddModelError(string.Empty, "Email ou senha inválidos.");
-                    return View(usuario);
+                    return View(model);
                 }
 
                 HttpContext.Session.SetString("UsuarioNome", usuarioExistente.Nome);
                 HttpContext.Session.SetString("UsuarioPerfil", usuarioExistente.Perfil);
 
                 if (usuarioExistente.Perfil == "ADM")
-                    return RedirectToAction("Loja", "PgPrincipal", new { area = "ADM" });
+                    return RedirectToAction("Loja", "Home", new { area = "ADM" });
                 else
-                    return RedirectToAction("Loja", "PgPrincipal", new { area = "USR" });
+                    return RedirectToAction("Loja", "Home", new { area = "USR" });
             }
-            return View(usuario);
+            return View(model);
         }
 
         public IActionResult TelaDeCadastro()
@@ -68,6 +68,12 @@ namespace MVC_GAMEHUB.Controllers
                 return RedirectToAction("TelaDeLogin");
             }
             return View(usuario);
+        }
+
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("TelaDeLogin");
         }
     }
 }

@@ -1,0 +1,47 @@
+﻿@model IEnumerable<MVC_GAMEHUB.Models.Jogo>
+@{
+    ViewData["Title"] = "Loja";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 style="color:#c9b8ff;">Loja</h2>
+        <a asp-area="ADM" asp-controller="Jogos" asp-action="Create"
+           style="background:#5c2d91; color:#e0d0ff; border:1px solid #7c4dff; padding:8px 18px; border-radius:4px; text-decoration:none; font-weight:600;">
+            Novo jogo
+        </a>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <p style="color:#6a5a8a;">Nenhum jogo cadastrado ainda.</p>
+    }
+    else
+    {
+        <div class="row">
+            @foreach (var jogo in Model)
+            {
+                <div class="col-md-3 mb-4">
+                    <div style="background:#1a0f2e; border:1px solid #3a2060; border-radius:6px; overflow:hidden; transition:transform 0.2s;"
+                         onmouseover="this.style.transform='translateY(-4px)'; this.style.borderColor='#7c4dff';"
+                         onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='#3a2060';">
+                        <img src="@(string.IsNullOrEmpty(jogo.ImagemUrl) ? "/images/no-image.jpg" : jogo.ImagemUrl)"
+                             style="width:100%; height:160px; object-fit:cover;" alt="@jogo.Nome">
+                        <div style="padding:12px;">
+                            <div style="color:#c9b8ff; font-size:13px; font-weight:600; margin-bottom:4px;">@jogo.Nome</div>
+                            <div style="color:#6a5a8a; font-size:11px; margin-bottom:8px;">@jogo.Categoria</div>
+                            <div style="color:#a78bfa; font-size:14px; font-weight:700; margin-bottom:10px;">R$ @jogo.Preco.ToString("F2")</div>
+                            <div style="display:flex; gap:6px;">
+                                <button class="btn btn-sm" style="background:#5c2d91; color:#e0d0ff; border:1px solid #7c4dff; flex:1; font-size:11px;">Comprar</button>
+                                <a asp-area="ADM" asp-controller="Jogos" asp-action="Delete" asp-route-id="@jogo.Id"
+                                   class="btn btn-sm btn-danger" style="font-size:11px;"
+                                   onclick="return confirm('Remover @jogo.Nome?')">✕</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>

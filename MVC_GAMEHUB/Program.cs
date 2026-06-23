@@ -7,7 +7,7 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<Contexto>
     (options => options.UseSqlServer
-    ("Data Source=TQR224232;Initial Catalog=Crud_do_GameHub;Integrated Security=False;User ID=tds;Password=tds123;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False"));
+    ("Data Source=TQR224232;Initial Catalog=CRUD_MVC_DO_MURILO;Integrated Security=False;User ID=tds;Password=tds123;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False"));
 
 builder.Services.AddSession();
 

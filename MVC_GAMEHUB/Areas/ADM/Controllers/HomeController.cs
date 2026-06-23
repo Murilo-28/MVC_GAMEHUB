@@ -1,23 +1,25 @@
-using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MVC_GAMEHUB.Models;
+using System.Diagnostics;
 
 namespace MVC_GAMEHUB.Areas.ADM.Controllers
 {
+    [Area("ADM")]
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly Contexto _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(Contexto context)
         {
-            _logger = logger;
+            _context = context;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Loja()
         {
-            return View();
+            var jogos = await _context.Jogos.ToListAsync();
+            return View(jogos);
         }
-
         public IActionResult Privacy()
         {
             return View();
