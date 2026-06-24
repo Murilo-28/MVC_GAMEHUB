@@ -13,18 +13,19 @@ namespace MVC_GAMEHUB.Models
 
         [Column("Nome")]
         [Display(Name = "Nome")]
-        public string Nome { get; set; }
+        public string? Nome { get; set; }
 
         [Column("Categoria")]
         [Display(Name = "Categoria")]
-        public string Categoria { get; set; }
+        public string? Categoria { get; set; }
 
         [Column("ImagemUrl")]
         [Display(Name = "URL da Imagem")]
-        public string ImagemUrl { get; set; }
+        public string? ImagemUrl { get; set; }
 
-        [Column("Preço")]
-        [Display(Name = "Preço")]
+        [Column("Preco")]
+        [Display(Name = "Preco")]
+        [DataType(DataType.Currency)]
         public decimal Preco { get; set; }
     }
 }

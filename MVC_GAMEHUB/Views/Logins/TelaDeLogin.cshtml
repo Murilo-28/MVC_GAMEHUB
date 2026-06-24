@@ -1,39 +1,89 @@
-﻿@model MVC_GAMEHUB.Models.Usuario
-
+﻿@model MVC_GAMEHUB.Models.LoginViewModel
 @{
-    ViewData["Title"] = "Login Tela";
+    ViewData["Title"] = "Login";
     ViewBag.HideMenu = true;
     Layout = "~/Views/Shared/_LayoutLogin.cshtml";
 }
 
-<div class="tituloLogin">
-    <h1>Entrar</h1>
-    <h3>Seja bem vindo ao</h3>
-    <h2>Game Hub</h2>
-</div>
-<div>
-    <form asp-action="TelaDeLogin" method="post">
+<style>
+    .btn-entrar {
+        width: 100%;
+        background: #5c2d91;
+        color: #e0d0ff;
+        border: 1px solid #7c4dff;
+        padding: 11px;
+        border-radius: 4px;
+        font-size: 14px;
+        font-weight: 700;
+        cursor: pointer;
+        letter-spacing: 0.5px;
+    }
 
-        @if (ViewBag.Erro != null)
-        {
-            <div class="alert alert-danger">@ViewBag.Erro</div>
+        .btn-entrar:hover {
+            background: #7c4dff;
         }
 
-        <div>
-            <label asp-for="Email"></label>
-            <input asp-for="Email" class="form-control" />
-            <span asp-validation-for="Email" class="text-danger"></span>
+    .link-cadastro {
+        color: #7c4dff;
+        font-size: 13px;
+        text-decoration: none;
+    }
+
+        .link-cadastro:hover {
+            color: #c9b8ff;
+        }
+
+    .input-login {
+        background: #0f0f1a;
+        color: #e0d0ff;
+        border: 1px solid #4a2d7a;
+        border-radius: 4px;
+        margin-top: 6px;
+        padding: 10px;
+        width: 100%;
+    }
+</style>
+
+<div style="min-height:100vh; background:#0f0f1a; display:flex; align-items:center; justify-content:center;">
+    <div style="width:100%; max-width:420px; padding:20px;">
+
+        <div style="text-align:center; margin-bottom:32px;">
+            <h1 style="color:#c9b8ff; font-size:28px; font-weight:800; letter-spacing:1px;">MVC_GAMEHUB</h1>
+            <p style="color:#6a5a8a; font-size:14px; margin-top:4px;">Seja bem-vindo de volta</p>
         </div>
-        <div>
-            <label asp-for="Senha"></label>
-            <input asp-for="Senha" class="form-control" type="password" />
-            <span asp-validation-for="Senha" class="text-danger"></span>
+
+        <div style="background:#1a0f2e; border:1px solid #3a2060; border-radius:8px; padding:36px; box-shadow:0 8px 32px rgba(0,0,0,0.5);">
+
+            @if (ViewBag.Erro != null)
+            {
+                <div style="background:#2d1a2e; border:1px solid #7c2d2d; color:#ff8a8a; padding:10px 14px; border-radius:4px; margin-bottom:20px; font-size:13px;">
+                    @ViewBag.Erro
+                </div>
+            }
+
+            <form asp-action="TelaDeLogin" method="post">
+                <div asp-validation-summary="ModelOnly" style="color:#ff8a8a; font-size:13px; margin-bottom:12px;"></div>
+
+                <div style="margin-bottom:18px;">
+                    <label asp-for="Email" style="color:#a89cc8; font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:0.6px;"></label>
+                    <input asp-for="Email" class="input-login" />
+                    <span asp-validation-for="Email" class="text-danger" style="font-size:11px;"></span>
+                </div>
+
+                <div style="margin-bottom:28px;">
+                    <label asp-for="Senha" style="color:#a89cc8; font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:0.6px;"></label>
+                    <input asp-for="Senha" type="password" class="input-login" />
+                    <span asp-validation-for="Senha" class="text-danger" style="font-size:11px;"></span>
+                </div>
+
+                <button type="submit" class="btn-entrar">Entrar</button>
+
+                <div style="text-align:center; margin-top:20px;">
+                    <a asp-action="TelaDeCadastro" class="link-cadastro">
+                        Não tem uma conta? Cadastre-se
+                    </a>
+                </div>
+            </form>
         </div>
-        <div>
-            <input type="submit" value="Entrar" />
-        </div>
-        <div>
-            <a asp-action="TelaDeCadastro">Não tem uma conta? Cadastre-se</a>
-        </div>
-    </form>
+    </div>
 </div>

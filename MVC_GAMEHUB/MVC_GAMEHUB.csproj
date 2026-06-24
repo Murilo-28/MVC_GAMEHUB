@@ -15,8 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\ADM\Views\PgCompras\" />
-    <Folder Include="Areas\ADM\Views\PgClientes\" />
     <Folder Include="Areas\USR\Controllers\" />
     <Folder Include="Areas\USR\Views\" />
     <Folder Include="Areas\USR\Views\PgPrincipal\" />

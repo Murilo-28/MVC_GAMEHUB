@@ -26,9 +26,18 @@ namespace MVC_GAMEHUB.Areas.ADM.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Nome,Categoria,Preco,ImagemUrl,Descricao")] Jogo jogo)
+        public async Task<IActionResult> Create(Jogo jogo)
         {
+            Console.WriteLine($"Nome: {jogo.Nome} | Categoria: {jogo.Categoria} | Preco: {jogo.Preco} | ImagemUrl: {jogo.ImagemUrl}");
+
+            foreach (var erro in ModelState)
+            {
+                foreach (var e in erro.Value.Errors)
+                {
+                    Console.WriteLine($"CAMPO: {erro.Key} | ERRO: {e.ErrorMessage} | EXCEPTION: {e.Exception?.Message}");
+                }
+            }
+
             if (ModelState.IsValid)
             {
                 _context.Add(jogo);

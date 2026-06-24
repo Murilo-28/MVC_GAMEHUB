@@ -3,16 +3,19 @@ using MVC_GAMEHUB.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace WebCRUDMVCSQL.Migrations
+namespace MVC_GAMEHUB.Migrations
 {
     [DbContext(typeof(Contexto))]
-    partial class ContextoModelSnapshot : ModelSnapshot
+    [Migration("20260623230022_mudancaNaModelDosJogos")]
+    partial class mudancaNaModelDosJogos
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -31,20 +34,23 @@ namespace WebCRUDMVCSQL.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Categoria")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("Categoria");
 
                     b.Property<string>("ImagemUrl")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("ImagemUrl");
 
                     b.Property<string>("Nome")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("Nome");
 
                     b.Property<decimal>("Preco")
                         .HasColumnType("decimal(18,2)")
-                        .HasColumnName("Preco");
+                        .HasColumnName("Preço");
 
                     b.HasKey("Id");
 
