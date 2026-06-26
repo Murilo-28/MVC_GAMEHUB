@@ -8,32 +8,38 @@
     <h2 style="color:#c9b8ff;">Adicionar Jogo</h2>
     <hr style="border-color:#3a2060;">
 
-    <form asp-area="ADM" asp-controller="Jogos" asp-action="Create" method="post">
+    <form action="/ADM/Jogos/Create" method="post">
+        @Html.AntiForgeryToken()
+
         <div class="mb-3">
-            <label asp-for="Nome" style="color:#a89cc8;">Nome</label>
-            <input asp-for="Nome" class="form-control" style="background:#1a0f2e; color:#e0d0ff; border-color:#4a2d7a;" />
-            <span asp-validation-for="Nome" class="text-danger"></span>
+            <label style="color:#a89cc8;">Nome</label>
+            <input type="text" name="Nome" class="form-control"
+                   style="background:#1a0f2e; color:#e0d0ff; border-color:#4a2d7a;" />
         </div>
+
         <div class="mb-3">
-            <label asp-for="Categoria" style="color:#a89cc8;">Categoria</label>
-            <input asp-for="Categoria" class="form-control" style="background:#1a0f2e; color:#e0d0ff; border-color:#4a2d7a;" />
-            <span asp-validation-for="Categoria" class="text-danger"></span>
+            <label style="color:#a89cc8;">Categoria</label>
+            <input type="text" name="Categoria" class="form-control"
+                   style="background:#1a0f2e; color:#e0d0ff; border-color:#4a2d7a;" />
         </div>
+
         <div class="mb-3">
-            <label asp-for="Preco" style="color:#a89cc8;">Preço</label>
-            <input asp-for="Preco" class="form-control" style="background:#1a0f2e; color:#e0d0ff; border-color:#4a2d7a;" placeholder="0,00" />
-            <span asp-validation-for="Preco" class="text-danger"></span>
+            <label style="color:#a89cc8;">Preço</label>
+            <input type="text" name="Preco" class="form-control"
+                   style="background:#1a0f2e; color:#e0d0ff; border-color:#4a2d7a;" placeholder="0.00" />
         </div>
+
         <div class="mb-3">
-            <label asp-for="ImagemUrl" style="color:#a89cc8;">URL da Imagem</label>
-            <input asp-for="ImagemUrl" class="form-control" style="background:#1a0f2e; color:#e0d0ff; border-color:#4a2d7a;" placeholder="https://..." />
-            <span asp-validation-for="ImagemUrl" class="text-danger"></span>
+            <label style="color:#a89cc8;">URL da Imagem</label>
+            <input type="text" name="ImagemUrl" class="form-control"
+                   style="background:#1a0f2e; color:#e0d0ff; border-color:#4a2d7a;" placeholder="https://..." />
         </div>
+
         <div style="display:flex; gap:10px; margin-top:24px;">
             <button type="submit" style="background:#5c2d91; color:#e0d0ff; border:1px solid #7c4dff; padding:8px 24px; border-radius:4px; font-weight:600;">
                 Salvar
             </button>
-            <a href="/ADM/Home/Loja" style="background:transparent; color:#a89cc8; border:1px solid #4a2d7a; padding:8px 24px; border-radius:4px; text-decoration:none;">
+            <a href="/ADM/Jogos/Loja" style="background:transparent; color:#a89cc8; border:1px solid #4a2d7a; padding:8px 24px; border-radius:4px; text-decoration:none;">
                 Cancelar
             </a>
         </div>

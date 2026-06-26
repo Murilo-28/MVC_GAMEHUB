@@ -14,7 +14,7 @@ namespace MVC_GAMEHUB.Areas.ADM.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Loja()
         {
             var jogos = await _context.Jogos.ToListAsync();
             return View(jogos);
@@ -28,32 +28,34 @@ namespace MVC_GAMEHUB.Areas.ADM.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(Jogo jogo)
         {
-            Console.WriteLine($"Nome: {jogo.Nome} | Categoria: {jogo.Categoria} | Preco: {jogo.Preco} | ImagemUrl: {jogo.ImagemUrl}");
-
-            foreach (var erro in ModelState)
+            if (!ModelState.IsValid)
             {
-                foreach (var e in erro.Value.Errors)
+                foreach (var erro in ModelState.Values.SelectMany(v => v.Errors))
                 {
-                    Console.WriteLine($"CAMPO: {erro.Key} | ERRO: {e.ErrorMessage} | EXCEPTION: {e.Exception?.Message}");
+                    Console.WriteLine("ERRO: " + erro.ErrorMessage);
                 }
+                return View(jogo);
             }
 
-            if (ModelState.IsValid)
-            {
-                _context.Add(jogo);
-                await _context.SaveChangesAsync();
-                return RedirectToAction("Loja", "Home", new { area = "ADM" });
-            }
-            return View(jogo);
+            _context.Jogos.Add(jogo);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Loja", "Jogos", new { area = "ADM" });
         }
 
         public async Task<IActionResult> Delete(int id)
         {
             var jogo = await _context.Jogos.FindAsync(id);
-            if (jogo == null) return NotFound();
+
+            if (jogo == null)
+            {
+                return NotFound();
+            }
+
             _context.Jogos.Remove(jogo);
             await _context.SaveChangesAsync();
-            return RedirectToAction("Loja", "Home", new { area = "ADM" });
+
+            return RedirectToAction("Loja", "Jogos", new { area = "ADM" });
         }
     }
 }

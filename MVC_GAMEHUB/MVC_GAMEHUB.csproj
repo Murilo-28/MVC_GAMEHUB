@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\ADM\Views\Home\**" />
+    <Content Remove="Areas\ADM\Views\Home\**" />
+    <EmbeddedResource Remove="Areas\ADM\Views\Home\**" />
+    <None Remove="Areas\ADM\Views\Home\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.9">
       <PrivateAssets>all</PrivateAssets>
@@ -15,6 +22,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Areas\ADM\Views\Clientes\" />
+    <Folder Include="Areas\ADM\Views\Compras\" />
     <Folder Include="Areas\USR\Controllers\" />
     <Folder Include="Areas\USR\Views\" />
     <Folder Include="Areas\USR\Views\PgPrincipal\" />
