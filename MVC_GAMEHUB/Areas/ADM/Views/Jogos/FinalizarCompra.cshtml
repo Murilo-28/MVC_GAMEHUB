@@ -1,0 +1,19 @@
+﻿@{
+    ViewData["Title"] = "Compra Concluída";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var nome = Context.Session.GetString("UsuarioNome") ?? "Usuário";
+}
+
+<div class="container mt-4" style="max-width:500px; text-align:center; padding:60px 0;">
+    <div style="font-size:64px; margin-bottom:24px;">✅</div>
+    <h2 style="color:#c9b8ff; margin-bottom:8px;">Compra Concluída!</h2>
+    <p style="color:#a89cc8; margin-bottom:32px;">
+        Obrigado, <strong style="color:#c9b8ff;">@nome</strong>! Seus jogos já estão disponíveis na sua biblioteca.
+    </p>
+    <a href="/ADM/Jogos/Loja"
+       style="background:#5c2d91; color:#e0d0ff; border:1px solid #7c4dff; padding:12px 36px; border-radius:4px; text-decoration:none; font-weight:700; font-size:15px;"
+       onmouseover="this.style.background='#7c4dff';"
+       onmouseout="this.style.background='#5c2d91';">
+        Voltar à Loja
+    </a>
+</div>

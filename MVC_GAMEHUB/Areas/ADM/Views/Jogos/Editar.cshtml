@@ -1,0 +1,66 @@
+﻿@model MVC_GAMEHUB.Models.Jogo
+@{
+    ViewData["Title"] = "Editar Jogo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4" style="max-width:600px;">
+
+    <form action="/ADM/Jogos/Editar/@Model.Id" method="post">
+        @Html.AntiForgeryToken()
+
+        <div class="mb-3">
+            <label style="color:#a89cc8; font-size:13px; margin-bottom:6px; display:block;">Nome</label>
+            <input type="text" name="Nome" value="@Model.Nome"
+                   class="form-control"
+                   style="background:#1a0f2e; color:#e0d0ff; border-color:#4a2d7a;" />
+        </div>
+
+        <div class="mb-3">
+            <label style="color:#a89cc8; font-size:13px; margin-bottom:6px; display:block;">Categoria</label>
+            <input type="text" name="Categoria" value="@Model.Categoria"
+                   class="form-control"
+                   style="background:#1a0f2e; color:#e0d0ff; border-color:#4a2d7a;" />
+        </div>
+
+        <div class="mb-3">
+            <label style="color:#a89cc8; font-size:13px; margin-bottom:6px; display:block;">Preço</label>
+            <input type="text" name="Preco" value="@Model.Preco.ToString("F2")"
+                   class="form-control"
+                   style="background:#1a0f2e; color:#e0d0ff; border-color:#4a2d7a;" />
+        </div>
+
+        <div class="mb-3">
+            <label style="color:#a89cc8; font-size:13px; margin-bottom:6px; display:block;">URL da Imagem</label>
+            <input type="text" name="ImagemUrl" value="@Model.ImagemUrl"
+                   class="form-control"
+                   style="background:#1a0f2e; color:#e0d0ff; border-color:#4a2d7a;" placeholder="https://..." />
+
+            <div style="margin-top:8px; font-size:11px; color:#6a5a8a;">
+                Preview:
+                <img id="preview" src="@Model.ImagemUrl" style="width:100%; height:120px; object-fit:cover; border-radius:4px; margin-top:6px; border:1px solid #3a2060;" />
+            </div>
+        </div>
+
+        <div style="display:flex; gap:10px; margin-top:28px;">
+            <button type="submit"
+                    style="background:#5c2d91; color:#e0d0ff; border:1px solid #7c4dff; padding:10px 28px; border-radius:4px; font-weight:600; cursor:pointer;"
+                    onmouseover="this.style.background='#7c4dff';"
+                    onmouseout="this.style.background='#5c2d91';">
+                Salvar Alterações
+            </button>
+            <a href="/ADM/Jogos/Detalhes/@Model.Id"
+               style="background:transparent; color:#a89cc8; border:1px solid #4a2d7a; padding:10px 24px; border-radius:4px; text-decoration:none;"
+               onmouseover="this.style.borderColor='#7c4dff'; this.style.color='#c9b8ff';"
+               onmouseout="this.style.borderColor='#4a2d7a'; this.style.color='#a89cc8';">
+                Cancelar
+            </a>
+        </div>
+    </form>
+</div>
+
+<script>
+    document.querySelector('input[name="ImagemUrl"]').addEventListener('input', function () {
+        document.getElementById('preview').src = this.value;
+    });
+</script>

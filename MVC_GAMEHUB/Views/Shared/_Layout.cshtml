@@ -38,6 +38,12 @@
                     <span style="color:#c9b8ff; font-size:13px; font-weight:500;">
                         @Context.Session.GetString("UsuarioNome")
                     </span>
+                    <a href="/ADM/Jogos/Carrinho"
+                       style="color:#a89cc8; text-decoration:none; font-size:20px; padding:5px 10px; border:1px solid #4a2d7a; border-radius:4px;"
+                       onmouseover="this.style.color='#c9b8ff'; this.style.borderColor='#7c4dff';"
+                       onmouseout="this.style.color='#a89cc8'; this.style.borderColor='#4a2d7a';">
+                        🛒
+                    </a>
                     <a asp-area="" asp-controller="Logins" asp-action="Logout"
                        style="color:#a89cc8; font-size:12px; text-decoration:none; padding:5px 12px; border:1px solid #4a2d7a; border-radius:4px; transition:all 0.2s;"
                        onmouseover="this.style.background='#2d1f4e'; this.style.color='#c9b8ff';"

@@ -1,0 +1,114 @@
+﻿@model MVC_GAMEHUB.Models.Jogo
+@{
+    ViewData["Title"] = @Model.Nome;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.HideMenu = true;
+}
+
+<div style="background:#1a0f2e; min-height:100vh; padding:0;">
+
+    <!-- Banner do jogo -->
+    <div style="position:relative; width:100%; height:380px; overflow:hidden;">
+        <img src="@(string.IsNullOrEmpty(Model.ImagemUrl) ? "/images/no-image.jpg" : Model.ImagemUrl)"
+             style="width:100%; height:100%; object-fit:cover; filter:brightness(0.55);" />
+        <div style="position:absolute; inset:0; background:linear-gradient(to right, rgba(15,10,30,0.95) 35%, transparent 100%);"></div>
+
+        <!-- Info sobre o banner -->
+        <div style="position:absolute; bottom:36px; left:48px;">
+            <div style="color:#c9b8ff; font-size:32px; font-weight:800; letter-spacing:1px; text-shadow:0 2px 8px #000;">
+                @Model.Nome
+            </div>
+            <div style="color:#a78bfa; font-size:14px; margin-top:6px; font-weight:500;">
+                @Model.Categoria
+            </div>
+
+            <div style="display:flex; align-items:center; gap:16px; margin-top:20px;">
+                <div style="color:#a78bfa; font-size:22px; font-weight:800;">
+                    R$ @Model.Preco.ToString("F2")
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Corpo da página -->
+    <div class="container" style="padding:32px 16px;">
+        <div class="row">
+
+            <!-- Coluna esquerda: screenshots simulados -->
+            <div class="col-md-8">
+                <div style="color:#c9b8ff; font-size:13px; font-weight:600; text-transform:uppercase; letter-spacing:1px; margin-bottom:12px;">
+                    Conquistas
+                </div>
+
+                <!-- Descrição -->
+                <div style="margin-top:28px; color:#c9b8ff; font-size:13px; font-weight:600; text-transform:uppercase; letter-spacing:1px; margin-bottom:10px;">
+                    Sobre o jogo
+                </div>
+                <div style="color:#a89cc8; font-size:14px; line-height:1.8; background:#120a24; border:1px solid #3a2060; border-radius:6px; padding:20px;">
+                    Explore o universo de <strong style="color:#c9b8ff;">@Model.Nome</strong> —
+                    um jogo da categoria <strong style="color:#c9b8ff;">@Model.Categoria</strong>.
+                    Prepare-se para uma experiência incrível.
+                </div>
+            </div>
+
+            <!-- Coluna direita: info -->
+            <div class="col-md-4">
+                <div style="background:#120a24; border:1px solid #3a2060; border-radius:6px; overflow:hidden;">
+                    <img src="@(string.IsNullOrEmpty(Model.ImagemUrl) ? "/images/no-image.jpg" : Model.ImagemUrl)"
+                         style="width:100%; height:180px; object-fit:cover;" />
+
+                    <div style="padding:16px;">
+                        <!-- Preço e botão comprar -->
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+                            <div style="color:#a78bfa; font-size:22px; font-weight:800;">
+                                R$ @Model.Preco.ToString("F2")
+                            </div>
+                        </div>
+
+                        <a href="/ADM/Jogos/AdicionarCarrinho/@Model.Id"
+                           style="display:block; text-align:center; width:100%; background:#5c2d91; color:#e0d0ff; border:1px solid #7c4dff; padding:10px; border-radius:4px; text-decoration:none; font-weight:700; font-size:14px; margin-bottom:8px;"
+                           onmouseover="this.style.background='#7c4dff';"
+                           onmouseout="this.style.background='#5c2d91';">
+                           Adicionar ao Carrinho
+                        </a>
+                        <button style="width:100%; background:transparent; color:#a89cc8; border:1px solid #4a2d7a; padding:10px; border-radius:4px; font-size:14px; cursor:pointer;"
+                                onmouseover="this.style.borderColor='#7c4dff'; this.style.color='#c9b8ff';"
+                                onmouseout="this.style.borderColor='#4a2d7a'; this.style.color='#a89cc8';">
+                            ♡ Lista de Desejos
+                        </button>
+
+                        <!-- Detalhes -->
+                        <div style="margin-top:20px; border-top:1px solid #3a2060; padding-top:16px;">
+                            <div style="display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px solid #1e1040;">
+                                <span style="color:#6a5a8a; font-size:12px;">Categoria</span>
+                                <span style="color:#c9b8ff; font-size:12px;">@Model.Categoria</span>
+                            </div>
+                            <div style="display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px solid #1e1040;">
+                                <span style="color:#6a5a8a; font-size:12px;">ID</span>
+                                <span style="color:#c9b8ff; font-size:12px;">#@Model.Id</span>
+                            </div>
+                            <div style="display:flex; justify-content:space-between; padding:6px 0;">
+                                <span style="color:#6a5a8a; font-size:12px;">Preço</span>
+                                <span style="color:#a78bfa; font-size:12px; font-weight:700;">R$ @Model.Preco.ToString("F2")</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Botões ADM -->
+                <div style="margin-top:12px; display:flex; gap:8px;">
+                    <a href="/ADM/Jogos/Loja"
+                       style="flex:1; text-align:center; background:transparent; color:#a89cc8; border:1px solid #4a2d7a; padding:8px; border-radius:4px; text-decoration:none; font-size:12px;">
+                        ← Voltar
+                    </a>
+                    <a href="/ADM/Jogos/Delete/@Model.Id"
+                       onclick="return confirm('Remover @Model.Nome?')"
+                       style="flex:1; text-align:center; background:#3a0a0a; color:#ff6b6b; border:1px solid #7a1a1a; padding:8px; border-radius:4px; text-decoration:none; font-size:12px;">
+                        ✕ Remover
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
