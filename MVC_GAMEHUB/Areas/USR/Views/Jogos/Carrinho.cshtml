@@ -1,14 +1,14 @@
 ﻿@model List<MVC_GAMEHUB.Models.CarrinhoItem>
 @{
     ViewData["Title"] = "Carrinho";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
     var total = Model.Sum(i => i.Preco);
     var nome = Context.Session.GetString("UsuarioNome") ?? "Usuário";
 }
 
 <div class="container mt-4">
     <div class="d-flex align-items-center gap-3 mb-4">
-        <a href="/ADM/Jogos/Loja" style="color:#6a5a8a; text-decoration:none; font-size:20px;">←</a>
+        <a href="/USR/Jogos/Loja" style="color:#6a5a8a; text-decoration:none; font-size:20px;">←</a>
         <h2 style="color:#c9b8ff; margin:0;">Carrinho</h2>
         <span style="color:#6a5a8a; font-size:14px;">@Model.Count jogo(s)</span>
     </div>
@@ -18,7 +18,7 @@
         <div style="text-align:center; padding:80px 0;">
             <div style="font-size:48px; margin-bottom:16px;">🛒</div>
             <div style="color:#6a5a8a; font-size:16px; margin-bottom:24px;">Seu carrinho está vazio.</div>
-            <a href="/ADM/Jogos/Loja"
+            <a href="/USR/Jogos/Loja"
                style="background:#5c2d91; color:#e0d0ff; border:1px solid #7c4dff; padding:10px 28px; border-radius:4px; text-decoration:none; font-weight:600;">
                 Ver Jogos
             </a>
@@ -27,38 +27,35 @@
     else
     {
         <div class="row">
-            <!-- Lista de itens -->
             <div class="col-md-8">
                 @foreach (var item in Model)
                 {
                     <div style="background:#1a0f2e; border:1px solid #3a2060; border-radius:6px; padding:16px; margin-bottom:12px; display:flex; gap:16px; align-items:center;">
                         <img src="@(string.IsNullOrEmpty(item.ImagemUrl) ? "/images/no-image.jpg" : item.ImagemUrl)"
-                             style="width:100px; height:60px; object-fit:cover; border-radius:4px; border:1px solid #3a2060;" />
+                             style="width:100px; height:60px; object-fit:cover; border-radius:4px;" />
                         <div style="flex:1;">
                             <div style="color:#c9b8ff; font-size:14px; font-weight:600;">@item.Nome</div>
                         </div>
                         <div style="color:#a78bfa; font-size:16px; font-weight:700; min-width:90px; text-align:right;">
                             R$ @item.Preco.ToString("F2")
                         </div>
-                        <a href="/ADM/Jogos/RemoverCarrinho/@item.JogoId"
+                        <a href="/USR/Jogos/RemoverCarrinho/@item.JogoId"
                            style="color:#ff6b6b; text-decoration:none; font-size:18px; padding:0 8px;"
                            onclick="return confirm('Remover @item.Nome do carrinho?')">✕</a>
                     </div>
                 }
             </div>
 
-            <!-- Resumo -->
             <div class="col-md-4">
-                <form action="/ADM/Jogos/FinalizarCompra" method="post">
+                <form action="/USR/Jogos/FinalizarCompra" method="post">
                     @Html.AntiForgeryToken()
                     <input type="hidden" name="formaPagamento" id="formaPagamentoInput" value="pix" />
 
-                    <div style="background:#1a0f2e; border:1px solid #3a2060; border-radius:6px; padding:20px; position:sticky; top:20px;">
+                    <div style="background:#1a0f2e; border:1px solid #3a2060; border-radius:6px; padding:20px;">
                         <div style="color:#c9b8ff; font-size:15px; font-weight:700; margin-bottom:16px; padding-bottom:12px; border-bottom:1px solid #3a2060;">
                             Resumo do Pedido
                         </div>
 
-                        <!-- Usuário logado -->
                         <div style="display:flex; align-items:center; gap:10px; margin-bottom:16px; padding-bottom:16px; border-bottom:1px solid #3a2060;">
                             <div style="width:32px; height:32px; border-radius:50%; background:#5c2d91; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:700; color:#e0d0ff; border:2px solid #7c4dff;">
                                 @nome[0]
@@ -69,7 +66,6 @@
                             </div>
                         </div>
 
-                        <!-- Itens -->
                         @foreach (var item in Model)
                         {
                             <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
@@ -83,27 +79,20 @@
                             <span style="color:#a78bfa; font-size:18px; font-weight:800;">R$ @total.ToString("F2")</span>
                         </div>
 
-                        <!-- Forma de pagamento -->
                         <div style="margin-bottom:16px;">
                             <div style="color:#a89cc8; font-size:12px; margin-bottom:10px;">Forma de pagamento</div>
                             <div style="display:flex; flex-direction:column; gap:8px;">
                                 <label style="display:flex; align-items:center; gap:8px; cursor:pointer; color:#c9b8ff; font-size:13px;">
-                                    <input type="radio" name="pagamento" value="pix" checked
-                                           style="accent-color:#7c4dff;"
-                                           onchange="document.getElementById('formaPagamentoInput').value='pix'" />
-                                    PIX
+                                    <input type="radio" name="pagamento" value="pix" checked style="accent-color:#7c4dff;"
+                                           onchange="document.getElementById('formaPagamentoInput').value='pix'" /> PIX
                                 </label>
                                 <label style="display:flex; align-items:center; gap:8px; cursor:pointer; color:#c9b8ff; font-size:13px;">
-                                    <input type="radio" name="pagamento" value="credito"
-                                           style="accent-color:#7c4dff;"
-                                           onchange="document.getElementById('formaPagamentoInput').value='credito'" />
-                                    Cartão de Crédito
+                                    <input type="radio" name="pagamento" value="credito" style="accent-color:#7c4dff;"
+                                           onchange="document.getElementById('formaPagamentoInput').value='credito'" /> Cartão de Crédito
                                 </label>
                                 <label style="display:flex; align-items:center; gap:8px; cursor:pointer; color:#c9b8ff; font-size:13px;">
-                                    <input type="radio" name="pagamento" value="boleto"
-                                           style="accent-color:#7c4dff;"
-                                           onchange="document.getElementById('formaPagamentoInput').value='boleto'" />
-                                    Boleto Bancário
+                                    <input type="radio" name="pagamento" value="boleto" style="accent-color:#7c4dff;"
+                                           onchange="document.getElementById('formaPagamentoInput').value='boleto'" /> Boleto Bancário
                                 </label>
                             </div>
                         </div>

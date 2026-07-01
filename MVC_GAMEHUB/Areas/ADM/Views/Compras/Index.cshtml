@@ -1,0 +1,90 @@
+﻿@model IEnumerable<MVC_GAMEHUB.Models.Pedido>
+@{
+    ViewData["Title"] = "Compras";
+    Layout = "~/Views/Shared/_Layout.cshtml";   
+    var total = Model.Sum(p => p.Total);
+}
+
+<div class="container mt-4">
+
+    <h2 style="color:#c9b8ff; margin-bottom:24px;">Compras dos Clientes</h2>
+
+    <!-- Cards de resumo -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div style="background:#1a0f2e; border:1px solid #3a2060; border-radius:6px; padding:20px; text-align:center;">
+                <div style="color:#a78bfa; font-size:32px; font-weight:800;">@Model.Count()</div>
+                <div style="color:#6a5a8a; font-size:12px; margin-top:4px;">Total de Pedidos</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div style="background:#1a0f2e; border:1px solid #3a2060; border-radius:6px; padding:20px; text-align:center;">
+                <div style="color:#6fcf6f; font-size:32px; font-weight:800;">@Model.Sum(p => p.Itens.Count)</div>
+                <div style="color:#6a5a8a; font-size:12px; margin-top:4px;">Jogos Vendidos</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div style="background:#1a0f2e; border:1px solid #3a2060; border-radius:6px; padding:20px; text-align:center;">
+                <div style="color:#a78bfa; font-size:32px; font-weight:800;">R$ @total.ToString("F2")</div>
+                <div style="color:#6a5a8a; font-size:12px; margin-top:4px;">Receita Total</div>
+            </div>
+        </div>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div style="text-align:center; padding:60px 0;">
+            <div style="font-size:48px; margin-bottom:16px;">🛒</div>
+            <div style="color:#6a5a8a; font-size:16px;">Nenhuma compra realizada ainda.</div>
+        </div>
+    }
+    else
+    {
+        <div style="background:#1a0f2e; border:1px solid #3a2060; border-radius:6px; overflow:hidden;">
+            @foreach (var pedido in Model)
+            {
+                <!-- Cabeçalho do pedido -->
+                <div style="padding:16px 20px; border-bottom:1px solid #3a2060; display:flex; align-items:center; gap:16px; flex-wrap:wrap;"
+                     onmouseover="this.style.background='#120a24';"
+                     onmouseout="this.style.background='transparent';">
+
+                    <!-- Avatar + nome -->
+                    <div style="display:flex; align-items:center; gap:10px; min-width:160px;">
+                        <div style="width:36px; height:36px; border-radius:50%; background:#5c2d91; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:700; color:#e0d0ff; border:2px solid #7c4dff; flex-shrink:0;">
+                            @pedido.UsuarioNome[0]
+                        </div>
+                        <div>
+                            <div style="color:#c9b8ff; font-size:13px; font-weight:600;">@pedido.UsuarioNome</div>
+                            <div style="color:#6a5a8a; font-size:11px;">Pedido #@pedido.Id</div>
+                        </div>
+                    </div>
+
+                    <!-- Jogos comprados -->
+                    <div style="flex:1; display:flex; gap:8px; flex-wrap:wrap;">
+                        @foreach (var item in pedido.Itens)
+                        {
+                            <div style="display:flex; align-items:center; gap:10px; background:#120a24; border:1px solid #3a2060; border-radius:6px; padding:8px 12px;">
+                                <img src="@(string.IsNullOrEmpty(item.JogoImagemUrl) ? "/images/no-image.jpg" : item.JogoImagemUrl)"
+                                     style="width:80px; height:50px; object-fit:cover; border-radius:4px; border:1px solid #3a2060;" />
+                                <div>
+                                    <div style="color:#c9b8ff; font-size:13px; font-weight:600;">@item.JogoNome</div>
+                                    <div style="color:#a78bfa; font-size:12px; font-weight:700;">R$ @item.Preco.ToString("F2")</div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+
+                    <!-- Pagamento + total + data -->
+                    <div style="display:flex; flex-direction:column; align-items:flex-end; gap:4px; min-width:130px;">
+                        <span style="color:#a78bfa; font-size:16px; font-weight:800;">R$ @pedido.Total.ToString("F2")</span>
+                        <span style="background:#1e1040; color:#c9b8ff; border:1px solid #3a2060; padding:2px 8px; border-radius:20px; font-size:10px; font-weight:600;">
+                            @pedido.FormaPagamento.ToUpper()
+                        </span>
+                        <span style="color:#6a5a8a; font-size:11px;">@pedido.DataPedido.ToString("dd/MM/yyyy HH:mm")</span>
+                    </div>
+
+                </div>
+            }
+        </div>
+    }
+</div>

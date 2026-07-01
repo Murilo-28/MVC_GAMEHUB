@@ -2,9 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using MVC_GAMEHUB.Models;
 
-namespace MVC_GAMEHUB.Areas.ADM.Controllers
+namespace MVC_GAMEHUB.Areas.USR.Controllers
 {
-    [Area("ADM")]
+    [Area("USR")]
     public class JogosController : Controller
     {
         private readonly Contexto _context;
@@ -18,69 +18,6 @@ namespace MVC_GAMEHUB.Areas.ADM.Controllers
         {
             var jogos = await _context.Jogos.ToListAsync();
             return View(jogos);
-        }
-
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Create(Jogo jogo)
-        {
-            if (!ModelState.IsValid)
-            {
-                foreach (var erro in ModelState.Values.SelectMany(v => v.Errors))
-                {
-                    Console.WriteLine("ERRO: " + erro.ErrorMessage);
-                }
-                return View(jogo);
-            }
-
-            _context.Jogos.Add(jogo);
-            await _context.SaveChangesAsync();
-
-            return RedirectToAction("Loja", "Jogos", new { area = "ADM" });
-        }
-
-        public async Task<IActionResult> Delete(int id)
-        {
-            var jogo = await _context.Jogos.FindAsync(id);
-
-            if (jogo == null)
-            {
-                return NotFound();
-            }
-
-            _context.Jogos.Remove(jogo);
-            await _context.SaveChangesAsync();
-
-            return RedirectToAction("Loja", "Jogos", new { area = "ADM" });
-        }
-
-        public async Task<IActionResult> Editar(int id)
-        {
-            var jogo = await _context.Jogos.FindAsync(id);
-            if (jogo == null) return NotFound();
-            return View(jogo);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Editar(int id, Jogo jogo)
-        {
-            if (!ModelState.IsValid) return View(jogo);
-
-            var jogoBanco = await _context.Jogos.FindAsync(id);
-            if (jogoBanco == null) return NotFound();
-
-            jogoBanco.Nome = jogo.Nome;
-            jogoBanco.Categoria = jogo.Categoria;
-            jogoBanco.Preco = jogo.Preco;
-            jogoBanco.ImagemUrl = jogo.ImagemUrl;
-
-            await _context.SaveChangesAsync();
-
-            return RedirectToAction("Loja", "Jogos", new { area = "ADM", id = id });
         }
 
         public async Task<IActionResult> Detalhes(int id)
@@ -174,11 +111,6 @@ namespace MVC_GAMEHUB.Areas.ADM.Controllers
             HttpContext.Session.Remove("Carrinho");
 
             return View(pedido);
-        }
-        public async Task<IActionResult> Usuarios()
-        {
-            var usuarios = await _context.Usuarios.ToListAsync();
-            return View(usuarios);
         }
     }
 }

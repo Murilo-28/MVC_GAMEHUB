@@ -1,7 +1,7 @@
 ﻿@model MVC_GAMEHUB.Models.Pedido
 @{
     ViewData["Title"] = "Compra Concluída";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
 }
 
 <div class="container mt-4" style="max-width:560px;">
@@ -24,7 +24,7 @@
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
                 <div style="display:flex; align-items:center; gap:10px;">
                     <img src="@(string.IsNullOrEmpty(item.JogoImagemUrl) ? "/images/no-image.jpg" : item.JogoImagemUrl)"
-                         style="width:48px; height:32px; object-fit:cover; border-radius:3px; border:1px solid #3a2060;" />
+                         style="width:48px; height:32px; object-fit:cover; border-radius:3px;" />
                     <span style="color:#c9b8ff; font-size:13px;">@item.JogoNome</span>
                 </div>
                 <span style="color:#a78bfa; font-size:13px; font-weight:700;">R$ @item.Preco.ToString("F2")</span>
@@ -42,7 +42,7 @@
     </div>
 
     <div style="text-align:center;">
-        <a href="/ADM/Jogos/Loja"
+        <a href="/USR/Jogos/Loja"
            style="background:#5c2d91; color:#e0d0ff; border:1px solid #7c4dff; padding:12px 36px; border-radius:4px; text-decoration:none; font-weight:700;"
            onmouseover="this.style.background='#7c4dff';"
            onmouseout="this.style.background='#5c2d91';">

@@ -38,7 +38,7 @@ namespace MVC_GAMEHUB.Controllers
                 if (usuarioExistente.Perfil == "ADM")
                     return RedirectToAction("Loja", "Jogos", new { area = "ADM" });
                 else
-                    return RedirectToAction("Loja", "Home", new { area = "USR" });
+                    return RedirectToAction("Loja", "Jogos", new { area = "USR" });
             }
             return View(model);
         }

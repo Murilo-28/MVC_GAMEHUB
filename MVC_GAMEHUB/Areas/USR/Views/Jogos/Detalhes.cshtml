@@ -1,0 +1,78 @@
+﻿@model MVC_GAMEHUB.Models.Jogo
+@{
+    ViewData["Title"] = @Model.Nome;
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<div style="background:#1a0f2e; min-height:100vh;">
+
+    <!-- Banner -->
+    <div style="position:relative; width:100%; height:380px; overflow:hidden;">
+        <img src="@(string.IsNullOrEmpty(Model.ImagemUrl) ? "/images/no-image.jpg" : Model.ImagemUrl)"
+             style="width:100%; height:100%; object-fit:cover; filter:brightness(0.55);" />
+        <div style="position:absolute; inset:0; background:linear-gradient(to right, rgba(15,10,30,0.95) 35%, transparent 100%);"></div>
+        <div style="position:absolute; bottom:36px; left:48px;">
+            <div style="color:#c9b8ff; font-size:32px; font-weight:800;">@Model.Nome</div>
+            <div style="color:#a78bfa; font-size:14px; margin-top:6px;">@Model.Categoria</div>
+            <div style="margin-top:20px;">
+                <span style="color:#a78bfa; font-size:22px; font-weight:800;">R$ @Model.Preco.ToString("F2")</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" style="padding:32px 16px;">
+        <div class="row">
+            <div class="col-md-8">
+                <div style="color:#c9b8ff; font-size:13px; font-weight:600; text-transform:uppercase; letter-spacing:1px; margin-bottom:12px;">Mídia</div>
+                <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:28px;">
+                    @for (int i = 0; i < 3; i++)
+                    {
+                        <div style="border-radius:4px; overflow:hidden; border:1px solid #3a2060;">
+                            <img src="@(string.IsNullOrEmpty(Model.ImagemUrl) ? "/images/no-image.jpg" : Model.ImagemUrl)"
+                                 style="width:100%; height:90px; object-fit:cover; filter:brightness(0.8);" />
+                        </div>
+                    }
+                </div>
+                <div style="color:#c9b8ff; font-size:13px; font-weight:600; text-transform:uppercase; letter-spacing:1px; margin-bottom:10px;">Sobre o jogo</div>
+                <div style="color:#a89cc8; font-size:14px; line-height:1.8; background:#120a24; border:1px solid #3a2060; border-radius:6px; padding:20px;">
+                    Explore o universo de <strong style="color:#c9b8ff;">@Model.Nome</strong> —
+                    um jogo da categoria <strong style="color:#c9b8ff;">@Model.Categoria</strong>.
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div style="background:#120a24; border:1px solid #3a2060; border-radius:6px; overflow:hidden;">
+                    <img src="@(string.IsNullOrEmpty(Model.ImagemUrl) ? "/images/no-image.jpg" : Model.ImagemUrl)"
+                         style="width:100%; height:180px; object-fit:cover;" />
+                    <div style="padding:16px;">
+                        <div style="color:#a78bfa; font-size:22px; font-weight:800; margin-bottom:14px;">
+                            R$ @Model.Preco.ToString("F2")
+                        </div>
+                        <a href="/USR/Jogos/AdicionarCarrinho/@Model.Id"
+                           style="display:block; text-align:center; background:#5c2d91; color:#e0d0ff; border:1px solid #7c4dff; padding:10px; border-radius:4px; text-decoration:none; font-weight:700; font-size:14px; margin-bottom:8px;"
+                           onmouseover="this.style.background='#7c4dff';"
+                           onmouseout="this.style.background='#5c2d91';">
+                            🛒 Adicionar ao Carrinho
+                        </a>
+                        <div style="margin-top:16px; border-top:1px solid #3a2060; padding-top:16px;">
+                            <div style="display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px solid #1e1040;">
+                                <span style="color:#6a5a8a; font-size:12px;">Categoria</span>
+                                <span style="color:#c9b8ff; font-size:12px;">@Model.Categoria</span>
+                            </div>
+                            <div style="display:flex; justify-content:space-between; padding:6px 0;">
+                                <span style="color:#6a5a8a; font-size:12px;">Preço</span>
+                                <span style="color:#a78bfa; font-size:12px; font-weight:700;">R$ @Model.Preco.ToString("F2")</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="margin-top:12px;">
+                    <a href="/USR/Jogos/Loja"
+                       style="display:block; text-align:center; background:transparent; color:#a89cc8; border:1px solid #4a2d7a; padding:8px; border-radius:4px; text-decoration:none; font-size:12px;">
+                        ← Voltar à Loja
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

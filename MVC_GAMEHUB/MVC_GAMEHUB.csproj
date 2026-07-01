@@ -22,11 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\ADM\Views\Clientes\" />
-    <Folder Include="Areas\ADM\Views\Compras\" />
-    <Folder Include="Areas\USR\Controllers\" />
-    <Folder Include="Areas\USR\Views\" />
-    <Folder Include="Areas\USR\Views\PgPrincipal\" />
+    <Folder Include="Areas\USR\Views\Biblioteca\" />
   </ItemGroup>
 
 </Project>
