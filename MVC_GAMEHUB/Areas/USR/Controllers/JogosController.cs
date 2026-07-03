@@ -90,9 +90,11 @@ namespace MVC_GAMEHUB.Areas.USR.Controllers
             if (!itens.Any()) return RedirectToAction("Carrinho");
 
             var usuarioNome = HttpContext.Session.GetString("UsuarioNome") ?? "Anônimo";
+            var usuarioId = int.Parse(HttpContext.Session.GetString("UsuarioId") ?? "0");
 
             var pedido = new Pedido
             {
+                UsuarioId = usuarioId,
                 UsuarioNome = usuarioNome,
                 FormaPagamento = formaPagamento,
                 Total = itens.Sum(i => i.Preco),
@@ -109,7 +111,6 @@ namespace MVC_GAMEHUB.Areas.USR.Controllers
             await _context.SaveChangesAsync();
 
             HttpContext.Session.Remove("Carrinho");
-
             return View(pedido);
         }
     }

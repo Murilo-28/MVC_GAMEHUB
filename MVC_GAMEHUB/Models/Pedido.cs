@@ -18,6 +18,9 @@ namespace MVC_GAMEHUB.Models
         [Column("Total")]
         public decimal Total { get; set; }
 
+        [Column("UsuarioId")]
+        public int UsuarioId { get; set; }
+
         [Column("DataPedido")]
         public DateTime DataPedido { get; set; } = DateTime.Now;
 

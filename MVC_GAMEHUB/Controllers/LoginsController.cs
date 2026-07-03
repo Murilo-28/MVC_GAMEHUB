@@ -34,6 +34,7 @@ namespace MVC_GAMEHUB.Controllers
 
                 HttpContext.Session.SetString("UsuarioNome", usuarioExistente.Nome);
                 HttpContext.Session.SetString("UsuarioPerfil", usuarioExistente.Perfil);
+                HttpContext.Session.SetString("UsuarioId", usuarioExistente.Id.ToString());
 
                 if (usuarioExistente.Perfil == "ADM")
                     return RedirectToAction("Loja", "Jogos", new { area = "ADM" });
